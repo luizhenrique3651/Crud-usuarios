@@ -83,6 +83,8 @@ export function CreateModal({ closeModal, usuario }: ModalProps) {
     return (
         <div className="modal-overlay">
             <div className="modal-body">
+            <button className = "btn-cancelar" onClick={closeModal}>x</button>
+
                 <h2>{usuario ? "Editar Usuário" : "Cadastre um novo item"}</h2>
                 <form className="input-container">
                     <Input label="Nome" value={nome} updateValue={setNome} />
@@ -96,6 +98,7 @@ export function CreateModal({ closeModal, usuario }: ModalProps) {
                 >
                     {usuario ? "Editar" : "Criar"}
                 </button>
+
             </div>
         </div>
     )
