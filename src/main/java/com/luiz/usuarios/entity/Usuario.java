@@ -3,6 +3,9 @@ package com.luiz.usuarios.entity;
 import com.luiz.usuarios.dto.UsuarioRequestDTO;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "usuario", schema = "securitySchema")
+@Table(name = "usuario", schema = "security")
 //cria todos getters, seters, allArgsContructor, hashCode
 @Getter
 @Setter
@@ -23,7 +26,8 @@ import lombok.Setter;
 @Builder
 public class Usuario {
 
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String nome;
