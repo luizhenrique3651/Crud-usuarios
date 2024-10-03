@@ -41,6 +41,11 @@ export function CreateModal({ closeModal, usuario }: ModalProps) {
     const { mutate: insertUser, isSuccess: isInsertSuccess } = useUsuarioDataMutate(); 
     const { mutate: updateUser, isSuccess: isUpdateSuccess } = useUsuarioDataUpdate(); 
 
+    const isValidEmail = (email: string) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
     useEffect(() => {
         if (usuario) {
             setNome(usuario.nome);
@@ -52,6 +57,10 @@ export function CreateModal({ closeModal, usuario }: ModalProps) {
     const submit = () => {
         if (nome.trim() === "" || senha.trim().length !== 6) { // Atualização: valida se a senha tem 6 dígitos
             setTitleError("Todos os campos devem ser preenchidos corretamente (senha com 6 dígitos)");
+            return;
+        }
+        if(!isValidEmail(email)){
+            setTitleError("Digite um email válido")
             return;
         }
 
