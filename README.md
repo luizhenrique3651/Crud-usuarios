@@ -40,7 +40,8 @@ Front-end:
     
 Back-end:
 
-    Buildar o projeto com "mvn clean package" no terminal na pasta raiz do projeto, e depois rodar como java application a classe UsuariosApplication.java na IDE de sua preferência.
+    Buildar o projeto com "mvn clean package" no terminal na pasta raiz do projeto, e depois
+    rodar como java application a classe UsuariosApplication.java na IDE de sua preferência.
     
     
 Endpoints da API
