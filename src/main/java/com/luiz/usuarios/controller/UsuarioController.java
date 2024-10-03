@@ -18,6 +18,11 @@ import com.luiz.usuarios.dto.UsuarioResponseDTO;
 import com.luiz.usuarios.entity.Usuario;
 import com.luiz.usuarios.repository.UsuarioRepository;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 @RequestMapping("usuario")
 public class UsuarioController {
@@ -25,18 +30,22 @@ public class UsuarioController {
 	@Autowired
 	UsuarioRepository repository;
 	
+	@Operation(description = "Carrega todos os objetos de Usuario do banco, converte para DTO")
 	@CrossOrigin(origins ="*", allowedHeaders = "*")
 	@GetMapping
 	public List<UsuarioResponseDTO> loadAll(){
 		return repository.findAll().stream().map(UsuarioResponseDTO::new).toList();
 	}
-	
+	@ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Usuário salvo com sucesso")})
+	@Operation(description = "Salva um Usuário novo do banco, transformando o DTO num Objeto e persiste ele.")
 	@CrossOrigin(origins ="*", allowedHeaders = "*")
 	@PostMapping
 	public void saveUsuario(@RequestBody UsuarioRequestDTO data) {
 		repository.save(new Usuario(data));
 	}
 	
+	@ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso"), @ApiResponse(responseCode = "400", description = "Usuário não encontrado")})
+	@Operation(description = "Atualiza um usuário do banco, fazendo um findById(), atualizando os campos e persistindo o objeto atualizado.")
 	@CrossOrigin(origins ="*", allowedHeaders = "*")
 	@PutMapping("/{id}")
 	public void updateUsuario(@PathVariable Long id, @RequestBody UsuarioRequestDTO data) {
@@ -48,6 +57,8 @@ public class UsuarioController {
 
 	    repository.save(usuarioExistente);
 	}
+	@ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Usuário deletado com sucesso"), @ApiResponse(responseCode = "400", description = "Usuário não encontrado")})
+	@Operation(description = "Deleta um usuário passando o ID do mesmo, fazendo um load do objeto com findById(), e deletando o mesmo.")
 	@CrossOrigin(origins ="*", allowedHeaders = "*")
 	@DeleteMapping("/{id}")
 	public void deleteUsuario(@PathVariable Long id) {
