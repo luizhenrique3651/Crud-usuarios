@@ -33,7 +33,7 @@ public class Usuario {
 	private String nome;
 	@Column(name = "matricula")
 	private Long matricula;
-	@Column(name = "senha")
+	@Column(name = "senha", length = 6 )
 	private String senha;
 	
 	public Usuario(UsuarioRequestDTO data) {
