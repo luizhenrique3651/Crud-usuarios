@@ -5,11 +5,7 @@
     justify-content: center;
     width: 100vw;
 }
-.card-grid{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 16px;
-}
+
 
 .cad-button{
     background-color: #0275d8;
@@ -27,19 +23,6 @@
 
 
 
-
-
-
-.user-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .user-list div {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 5px;
-  }
   
   .pagination {
     display: flex;
@@ -59,6 +42,7 @@
     width: 100%;
     border-collapse: collapse; 
     margin-top: 20px;
+
   }
   
   .user-table th, .user-table td {
@@ -79,9 +63,15 @@
   .user-table tr:hover {
     background-color: #f1f1f1; /* Cor de fundo ao passar o mouse sobre as linhas */
   }
-  
- 
-  
+  .delete-button{
+    
+    font-weight: bold;
+    margin-top: 2px;
+    transition: all 0.1s linear 0.1s;
+}
+.delete-button:hover{
+    color: #d83702;
+}
 
 
  

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useUsuarioDataMutate } from "../../hooks/useUsuarioDataMutate";
+import { useUsuarioDataMutate } from "../../hooks/UseUsuarioDataInsert"; // Mantenha o mutate para inserção
+import { useUsuarioDataUpdate } from "../../hooks/UseUsuarioDataUpdate"; // Novo hook para edição
 import { UsuarioData } from "../../interface/UsuarioData";
 import "./modal.css";
 
@@ -20,7 +21,7 @@ const Input = ({ label, value, updateValue }: InputProps) => {
 
 interface ModalProps {
     closeModal(): void;
-    usuario: UsuarioData | null; //Nova propriedade para receber os dados do usuário
+    usuario: UsuarioData | null; // Recebe os dados do usuário
 }
 
 export function CreateModal({ closeModal, usuario }: ModalProps) {
@@ -28,34 +29,50 @@ export function CreateModal({ closeModal, usuario }: ModalProps) {
     const [matricula, setMatricula] = useState(0);
     const [senha, setSenha] = useState("");
     const [titleError, setTitleError] = useState("");
-    const { mutate, isSuccess } = useUsuarioDataMutate();
+    const { mutate: insertUser, isSuccess: isInsertSuccess } = useUsuarioDataMutate(); // Para inserção
+    const { mutate: updateUser, isSuccess: isUpdateSuccess } = useUsuarioDataUpdate(); // Para edição
 
     useEffect(() => {
         if (usuario) {
-            setNome(usuario.nome); //Preenche o nome
-            setMatricula(usuario.matricula); //a matrícula
-            setSenha(usuario.senha); //e a senha
+            setNome(usuario.nome);
+            setMatricula(usuario.matricula);
+            setSenha(usuario.senha);
         }
     }, [usuario]);
 
     const submit = () => {
-        if (nome.trim() === "") {
+        if (nome.trim() === "" || senha.trim() == "") {
             setTitleError("Todos os campos devem ser preenchidos");
             return;
         }
+        if(matricula==0){
+            setTitleError("Defina corretamente o número da matrícula")
+            return
+        }
+
 
         const usuarioData: UsuarioData = {
+            id: usuario ? usuario.id : undefined, // Inclua o ID se existir
             nome,
             matricula,
             senha
         }
-        mutate(usuarioData);
+
+        // Verifica se é uma edição ou inserção
+        if (usuario) {
+            updateUser(usuarioData); // Edição
+            usuario = null;
+            
+        } else {
+            insertUser(usuarioData); // Inserção
+        }
     }
 
     useEffect(() => {
-        if (!isSuccess) return;
-        closeModal();
-    }, [isSuccess, closeModal]);
+        if (isInsertSuccess || isUpdateSuccess) {
+            closeModal();
+        }
+    }, [isInsertSuccess, isUpdateSuccess, closeModal]);
 
     useEffect(() => {
         if (nome.trim() !== "") {
@@ -77,7 +94,7 @@ export function CreateModal({ closeModal, usuario }: ModalProps) {
                     onClick={submit} 
                     className="btn-secondary"
                 >
-                    {usuario ? "Salvar" : "Submit"}
+                    {usuario ? "Editar" : "Criar"}
                 </button>
             </div>
         </div>
