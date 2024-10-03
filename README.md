@@ -36,11 +36,13 @@ Pré-requisitos
 
 Front-end:
 
-    Basta rodar "npm run dev" no terminal na pasta front/usuarios
+    Basta rodar "npm install && npm run dev" no terminal na pasta front/usuarios
     
 Back-end:
 
-    Rodar como java application a classe UsuariosApplication.java
+    Buildar o projeto com "mvn clean package" no terminal na pasta raiz do projeto, e depois
+    rodar como java application a classe UsuariosApplication.java na IDE de sua preferência.
+    
     
 Endpoints da API
 
