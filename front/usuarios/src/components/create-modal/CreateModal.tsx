@@ -37,8 +37,8 @@ export function CreateModal({ closeModal, usuario }: ModalProps) {
     const [matricula, setMatricula] = useState(0);
     const [senha, setSenha] = useState("");
     const [titleError, setTitleError] = useState("");
-    const { mutate: insertUser, isSuccess: isInsertSuccess } = useUsuarioDataMutate(); // Para inserção
-    const { mutate: updateUser, isSuccess: isUpdateSuccess } = useUsuarioDataUpdate(); // Para edição
+    const { mutate: insertUser, isSuccess: isInsertSuccess } = useUsuarioDataMutate(); 
+    const { mutate: updateUser, isSuccess: isUpdateSuccess } = useUsuarioDataUpdate(); 
 
     useEffect(() => {
         if (usuario) {
@@ -55,7 +55,7 @@ export function CreateModal({ closeModal, usuario }: ModalProps) {
         }
 
         const usuarioData: UsuarioData = {
-            id: usuario ? usuario.id : undefined, // Inclua o ID se existir
+            id: usuario ? usuario.id : undefined, 
             nome,
             matricula,
             senha
@@ -63,9 +63,9 @@ export function CreateModal({ closeModal, usuario }: ModalProps) {
 
         // Verifica se é uma edição ou inserção
         if (usuario) {
-            updateUser(usuarioData); // Edição
+            updateUser(usuarioData); 
         } else {
-            insertUser(usuarioData); // Inserção
+            insertUser(usuarioData);
         }
     }
 
@@ -93,8 +93,8 @@ export function CreateModal({ closeModal, usuario }: ModalProps) {
                         label="Senha" 
                         value={senha} 
                         updateValue={setSenha} 
-                        type="text"  // Campo numérico
-                        maxLength={6}  // Limita a 6 dígitos
+                        type="text" 
+                        maxLength={6}
                     />
                     {titleError && <p className="error-message">{titleError}</p>}
                 </form>
