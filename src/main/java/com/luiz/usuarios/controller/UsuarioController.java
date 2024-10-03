@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luiz.usuarios.dto.UsuarioRequestDTO;
+import com.luiz.usuarios.dto.UsuarioResponseDTO;
 import com.luiz.usuarios.entity.Usuario;
 import com.luiz.usuarios.repository.UsuarioRepository;
 
@@ -26,8 +27,8 @@ public class UsuarioController {
 	
 	@CrossOrigin(origins ="*", allowedHeaders = "*")
 	@GetMapping
-	public List<Usuario> loadAll(){
-		return repository.findAll();
+	public List<UsuarioResponseDTO> loadAll(){
+		return repository.findAll().stream().map(UsuarioResponseDTO::new).toList();
 	}
 	
 	@CrossOrigin(origins ="*", allowedHeaders = "*")
