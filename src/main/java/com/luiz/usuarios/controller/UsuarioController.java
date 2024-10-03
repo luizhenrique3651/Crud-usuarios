@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luiz.usuarios.dto.UsuarioRequestDTO;
@@ -45,7 +46,7 @@ public class UsuarioController {
 	}
 	
 	@ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso"), @ApiResponse(responseCode = "400", description = "Usuário não encontrado")})
-	@Operation(description = "Atualiza um usuário do banco, fazendo um findById(), atualizando os campos e persistindo o objeto atualizado.")
+	@Operation(description = "Atualiza um usuário do banco, fazendo um findById(), atualizando os campos do objeto e persistindo o objeto atualizado.")
 	@CrossOrigin(origins ="*", allowedHeaders = "*")
 	@PutMapping("/{id}")
 	public void updateUsuario(@PathVariable Long id, @RequestBody UsuarioRequestDTO data) {
@@ -58,7 +59,7 @@ public class UsuarioController {
 	    repository.save(usuarioExistente);
 	}
 	@ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Usuário deletado com sucesso"), @ApiResponse(responseCode = "400", description = "Usuário não encontrado")})
-	@Operation(description = "Deleta um usuário passando o ID do mesmo, fazendo um load do objeto com findById(), e deletando o mesmo.")
+	@Operation(description = "Deleta um usuário passando o ID do mesmo, fazendo um load do objeto com findById() para verificar se o mesmo existe no banco, e  caso exista, deleta o mesmo.")
 	@CrossOrigin(origins ="*", allowedHeaders = "*")
 	@DeleteMapping("/{id}")
 	public void deleteUsuario(@PathVariable Long id) {
@@ -66,6 +67,17 @@ public class UsuarioController {
 	        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 	    
 	    repository.delete(usuarioExistente);
+	}
+	
+	@ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Usuário encontrado com sucesso"), @ApiResponse(responseCode = "404", description = "Usuário não encontrado")})
+	@Operation(description = "Carrega um usuário pelo nome, retornando seu DTO correspondente.")
+	@CrossOrigin(origins ="*", allowedHeaders = "*")
+	@GetMapping("/byNome")
+	public UsuarioResponseDTO loadByNome(@RequestParam String nome) {
+	    Usuario usuario = repository.findByNome(nome)
+	        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+	    return new UsuarioResponseDTO(usuario); 
 	}
 
 }
