@@ -42,6 +42,7 @@ function App() {
           <thead>
             <tr>
               <th>Nome</th>
+              <th>Email</th>
               <th>Matrícula</th>
               <th>Senha</th>
               <th></th>
@@ -52,8 +53,9 @@ function App() {
             {currentItems.map(usuarioData => (
               <tr key={usuarioData.matricula}>
                 <td>{usuarioData.nome}</td>
+                <td>{usuarioData.email}</td>
                 <td>{usuarioData.matricula}</td>
-                <td>{'***'}</td>
+                <td>{'******'}</td>
                 <td>
                   <button onClick={() => handleEditUser(usuarioData)}>Editar</button>
                 </td>

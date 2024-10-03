@@ -36,6 +36,7 @@ export function CreateModal({ closeModal, usuario }: ModalProps) {
     const [nome, setNome] = useState("");
     const [matricula, setMatricula] = useState(0);
     const [senha, setSenha] = useState("");
+    const [email, setEmail] = useState("");
     const [titleError, setTitleError] = useState("");
     const { mutate: insertUser, isSuccess: isInsertSuccess } = useUsuarioDataMutate(); 
     const { mutate: updateUser, isSuccess: isUpdateSuccess } = useUsuarioDataUpdate(); 
@@ -58,7 +59,8 @@ export function CreateModal({ closeModal, usuario }: ModalProps) {
             id: usuario ? usuario.id : undefined, 
             nome,
             matricula,
-            senha
+            senha,
+            email
         }
 
         // Verifica se é uma edição ou inserção
@@ -88,6 +90,7 @@ export function CreateModal({ closeModal, usuario }: ModalProps) {
                 <h2>{usuario ? "Editar Usuário" : "Cadastre um novo item"}</h2>
                 <form className="input-container">
                     <Input label="Nome" value={nome} updateValue={setNome} />
+                    <Input label="Email" value={email} updateValue={setEmail}/>
                     <Input label="Matrícula" value={matricula} updateValue={setMatricula} />
                     <Input 
                         label="Senha" 
@@ -104,7 +107,6 @@ export function CreateModal({ closeModal, usuario }: ModalProps) {
                 >
                     {usuario ? "Editar" : "Criar"}
                 </button>
-                <button onClick={closeModal} className="btn-cancel">Cancelar</button>
             </div>
         </div>
     )

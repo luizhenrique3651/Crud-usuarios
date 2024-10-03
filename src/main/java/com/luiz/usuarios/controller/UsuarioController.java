@@ -55,6 +55,7 @@ public class UsuarioController {
 	    	    usuarioExistente.setNome(data.nome());
 	    usuarioExistente.setMatricula(data.matricula());
 	    usuarioExistente.setSenha(data.senha());
+	    usuarioExistente.setEmail(data.email());
 
 	    repository.save(usuarioExistente);
 	}

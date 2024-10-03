@@ -31,6 +31,8 @@ public class Usuario {
 	private Long id;
 	@Column(name = "nome")
 	private String nome;
+	@Column(name = "email")
+	private String email;
 	@Column(name = "matricula")
 	private Long matricula;
 	@Column(name = "senha", length = 6 )
