@@ -33,6 +33,7 @@ Pré-requisitos
     Java 17+: Certifique-se de ter o JDK (versão 17 ou superior) instalado para rodar o back-end.
     Maven: Para gerenciar as dependências do projeto Java.
     Banco de Dados:  banco de dados externo como Postgree (configurável no application.properties).
+    OBS: É necessário configurar as credenciais do SGBD no serviço application.properties
 
 Front-end:
 
